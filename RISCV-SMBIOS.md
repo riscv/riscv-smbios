@@ -40,7 +40,7 @@ RISC-V processor family is declared in this filed with *offset 06h* ***Processor
 |202h|514|RISC-V RV128|
 
 ## RISC-V SMBIOS Type 44 Processor Additional Information
-The information in this structure defines the processor additional information in case SMBIOS type 4 is not sufficient to describe processor characteristics. The SMBIOS type 44 has a field as reference handle to link back to SMBIOS type 4 which it belongs to. There may has one or multiples SMBIOS type 44 records linked to the same SMBIOS type 4. Each SMBIOS type 44 record describes each core of specific information in processor. SMBIOS type 44 defines the standard header of processor-specific block in SMBIOS type 44 (see section 7.45.1 in SMBIOS spec) while the content of processor-specific data is maintained by processor architecture in the separate document (see 7.45.2 in SMBIOS spec).
+The information in this structure defines the processor additional information in case SMBIOS type 4 is not sufficient to describe processor characteristics. The SMBIOS type 44 record has a reference handle field to link back to the related SMBIOS type 4 record. There may be one or multiple SMBIOS type 44 records linked to the same SMBIOS type 4. For example, where the SMBIOS type 44 records describe each core specific information in a processor. SMBIOS type 44 defines the standard header for the processor-specific block (see section 7.45.1), while the content of processor-specific data is maintained by processor architecture workgroups or vendors in a separate document (see 7.45.2).
 
 ### Standard Processor Additional Information (Type 44) structure
 -------------------------------------------------------------
