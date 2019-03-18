@@ -50,7 +50,7 @@ Below is the standard header of SMBIOS type 44 defined in SMBIOS spec v3.3.0, th
 | **Offset** | **Name**                                            | **Length** | **Value** | **Description**  |
 |------------|-----------------------------------------------------|------------|-----------|------------------|
 | 00h        | Type                                                | BYTE       | 44        | Processor Additional Information.|
-| 01h        | Length                                              | BYTE       | 4+Y       | Length of the structure. Y is the length of Processor-specific Block specified at offset 06h.|
+| 01h        | Length                                              | BYTE       | 6+Y       | Length of the structure. Y is the length of Processor-specific Block specified at offset 06h.|
 | 02h        | Handle                                              | WORD       | Varies    | Handle, or instance number, associated with the structure.|
 | 04h        | Referenced Handle                                   | WORD       | Varies    | Handle, or instance number, associated with the processor (SMBIOS type 4) which the processor additional information describes.|
 | 06h        | Processor-specific Block                            | Varies (Y) | Varies    | [Processor-specific block](#processor-specific_block)|
@@ -75,9 +75,9 @@ Processor-specific block is the standard header of processor-specific data as de
 |03h|Intel&reg; Itanium&reg; architecture|None|
 |04h|32-bit ARM(Aarch32)|None|
 |05h|64-bit ARM(Aarch64)|None|
-|06h|32-bit RISC-V(RV32)|None|
-|07h|64-bit RISC-V(RV64)|None|
-|08h|128-bit RISCV(RV64)|None|
+|06h|32-bit RISC-V(RV32)|see [ RISC-V Processor-specific Data](#risc-v_processor-specific_data)|
+|07h|64-bit RISC-V(RV64)|see [ RISC-V Processor-specific Data](#risc-v_processor-specific_data)|
+|08h|128-bit RISCV(RV64)|see [ RISC-V Processor-specific Data](#risc-v_processor-specific_data)|
 
 ### <a name="risc-v_processor-specific_data">RISC-V Processor-specific Data</a>
 ----------------------------------------------------------
@@ -87,21 +87,21 @@ RISC-V processor-specific additional information is constructed by RISC-V boot l
 | **Offset** | **Additional Info. Version** | **Name**| **Length** | **Value** | **Description**|
 |------------|------------------------------|-----------------------------------------------------------------------|------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 00h        | 000Ah (v0.10)| Revision of RISC-V Processor-specific Block Structure         | WORD       | Varies    | Bit 15:8 Major revision Bit 7:0 Minor revision The newer revision of RISC-V Processor-specific Block Structure is backward compatible with older version of this structure.|
-| 02h        | 000Ah (v0.10)                 | Structure Length | Byte       | 110         | Length of Processor-specific Data |
-| 03h        | 000Ah (v0.10)                 | Hart ID          | DQWORD     | Varies    | The ID of this RISC-V Hart        |
-| 13h        | 000Ah (v0.10)                 | Boot Hart        | BYTE       | Boolean   | 1: This is boot hart to boot system <br>0: This is not the boot hart |
-| 14h        | 000Ah (v0.10)                 | Machine Vendor ID | DQWORD     | Varies    | The vendor ID of this RISC-V Hart  |
-| 24h        | 000Ah (v0.10)                 | Machine Architecture ID  | DQWORD     | Varies    | Base microarchitecture of the hart. Value of 0 is possible to indicate the ﬁeld is not implemented. The combination of Machine Architecture ID and Machine Vendor ID should uniquely identify the type of hart microarchitecture that is implemented.  |
-| 34h        | 000Ah (v0.10)                 | Machine Implementation ID                                             | DQWORD     | Varies    | Unique encoding of the version of the processor implementation. Value of 0 is possible to indicate the ﬁeld is not implemented. The Implementation value should reﬂect the design of the RISC-V Hart. |
-| 44h        | 000Ah (v0.10)                 | Instruction set supported                                             | DWORD      | Bit-field | Bits [25:0] encodes the presence of RISC-V standard extensions, which is equivalent to bits [25:0] in RISC-V Machine ISA Register (**misa** CSR). Bits set to one mean the certain extensions of instruction set are supported on this hart. |
-| 48h        | 000Ah (v0.10)                 | Privilege Level Supported                                             | BYTE       | Varies    | The privilege levels supported by this RISC-V Hart. Bit 0 Machine Mode<br>BIT 1 Reserved<br>BIT 2 Supervisor Mode<br>Bit 3 User Mode<br>BIT 6:4 Reserved<br>BIT 7 Debug Mode |
-| 49H        | 000Ah (v0.10)                 | Machine Exception Trap Delegation Information                         | DQWORD     | Varies    | Bit set to one means the corresponding exception is delegated to supervisor execution environment. Otherwise, supervisor execution environment must register the event handler in Machine-Mode for the certain exceptions through environment call.|
-| 59H        | 000Ah (v0.10)                 | Machine Interrupt Trap Delegation Information                         | DQWORD     | Varies    | Bit set to one means the corresponding interrupt is delegated to supervisor execution environment. Otherwise, supervisor execution environment must register the event handler in Machine-Mode for the certain interrupts through environment. |
-| 69h        | 000Ah (v0.10)                 | The register width (XLEN)                                             | BYTE       | ENUM      | The width of register supported by this RISC-V Hart  |
-| 6Ah        | 000Ah (v0.10)                 | Machine Mode native base integer ISA width (M-XLEN)                   | BYTE       | ENUM      | The width (See below) of Machine Mode native base integer ISA supported by this RISC-V Hart   |
-| 6Bh        | 000Ah (v0.10)                 | Reserved                                                              | BYTE       | ENUM      | Placeholder for Hypervisor Mode  |
-| 6Ch        | 000Ah (v0.10)                 | Supervisor Mode native base integer ISA width (S-XLEN)                | BYTE       | ENUM      | The width (See below) of Supervisor Mode native base integer ISA supported by this RISC-V Hart  |
-| 6Dh        | 0000Ah (v0.10)                 | User Mode native base integer ISA width (U-XLEN)                      | BYTE       | ENUM      | The width (See below) of the User Mode native base integer ISA supported by this RISC-V Hart   |
+| 02h        | 0001h (v1.0)                 | Structure Length | Byte       | 110         | Length of Processor-specific Data |
+| 03h        | 0001h (v1.0)                 | Hart ID          | DQWORD     | Varies    | The ID of this RISC-V Hart        |
+| 13h        | 0001h (v1.0)                 | Boot Hart        | BYTE       | Boolean   | 1: This is boot hart to boot system <br>0: This is not the boot hart |
+| 14h        | 0001h (v1.0)                 | Machine Vendor ID | DQWORD     | Varies    | The vendor ID of this RISC-V Hart  |
+| 24h        | 0001h (v1.0)                 | Machine Architecture ID  | DQWORD     | Varies    | Base microarchitecture of the hart. Value of 0 is possible to indicate the ﬁeld is not implemented. The combination of Machine Architecture ID and Machine Vendor ID should uniquely identify the type of hart microarchitecture that is implemented.  |
+| 34h        | 0001h (v1.0)                 | Machine Implementation ID                                             | DQWORD     | Varies    | Unique encoding of the version of the processor implementation. Value of 0 is possible to indicate the ﬁeld is not implemented. The Implementation value should reﬂect the design of the RISC-V Hart. |
+| 44h        | 0001h (v1.0)                 | Instruction set supported                                             | DWORD      | Bit-field | Bits [25:0] encodes the presence of RISC-V standard extensions, which is equivalent to bits [25:0] in RISC-V Machine ISA Register (**misa** CSR). Bits set to one mean the certain extensions of instruction set are supported on this hart. |
+| 48h        | 0001h (v1.0)                 | Privilege Level Supported                                             | BYTE       | Varies    | The privilege levels supported by this RISC-V Hart. Bit 0 Machine Mode<br>BIT 1 Reserved<br>BIT 2 Supervisor Mode<br>Bit 3 User Mode<br>BIT 6:4 Reserved<br>BIT 7 Debug Mode |
+| 49H        | 0001h (v1.0)                 | Machine Exception Trap Delegation Information                         | DQWORD     | Varies    | Bit set to one means the corresponding exception is delegated to supervisor execution environment. Otherwise, supervisor execution environment must register the event handler in Machine-Mode for the certain exceptions through environment call.|
+| 59H        | 0001h (v1.0)                 | Machine Interrupt Trap Delegation Information                         | DQWORD     | Varies    | Bit set to one means the corresponding interrupt is delegated to supervisor execution environment. Otherwise, supervisor execution environment must register the event handler in Machine-Mode for the certain interrupts through environment. |
+| 69h        | 0001h (v1.0)                 | The register width (XLEN)                                             | BYTE       | ENUM      | The width of register supported by this RISC-V Hart  |
+| 6Ah        | 0001h (v1.0)                 | Machine Mode native base integer ISA width (M-XLEN)                   | BYTE       | ENUM      | The width (See below) of Machine Mode native base integer ISA supported by this RISC-V Hart   |
+| 6Bh        | 0001h (v1.0)                 | Reserved                                                              | BYTE       | ENUM      | Placeholder for Hypervisor Mode  |
+| 6Ch        | 0001h (v1.0)                 | Supervisor Mode native base integer ISA width (S-XLEN)                | BYTE       | ENUM      | The width (See below) of Supervisor Mode native base integer ISA supported by this RISC-V Hart  |
+| 6Dh        | 00001h (v1.0)                 | User Mode native base integer ISA width (U-XLEN)                      | BYTE       | ENUM      | The width (See below) of the User Mode native base integer ISA supported by this RISC-V Hart   |
 
 ### Encoding of RISC-V Native Base Integer ISA Width
 ----------------------------------------------------------
