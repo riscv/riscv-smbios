@@ -48,40 +48,48 @@ The information in this structure defines the processor additional information i
 Below is the standard header of SMBIOS type 44 defined in SMBIOS spec v3.3.0, the total length of entire SMBIOS type 44 is indicated in *offset 01h* and the value must be less than or equal to 255 in bytes according to section 6.1.2 in <a href="https://www.dmtf.org/standards/smbios">SMBIOS spec 3.2.0 spec</a>.
 
 | **Offset** | **Name**                                            | **Length** | **Value** | **Description**  |
-|------------|-----------------------------------------------------|------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|------------|-----------------------------------------------------|------------|-----------|------------------|
 | 00h        | Type                                                | BYTE       | 44        | Processor Additional Information.|
 | 01h        | Length                                              | BYTE       | 4+Y       | Length of the structure. Y is the length of Processor-specific Block specified at offset 06h.|
 | 02h        | Handle                                              | WORD       | Varies    | Handle, or instance number, associated with the structure.|
 | 04h        | Referenced Handle                                   | WORD       | Varies    | Handle, or instance number, associated with the processor (SMBIOS type 4) which the processor additional information describes.|
-| 06h        | Processor-specific Block | Varies (Y) | Varies    | Processor-specific block. (See below section)|
+| 06h        | Processor-specific Block                            | Varies (Y) | Varies    | [Processor-specific block](#processor-specific_block)|
 
-### Standard Processor-specific Block Structure
+### <a name="processor-specific_block">Processor-specific Block</a>
 ----------------------------------------------------------
 
 Processor-specific block is the standard header of processor-specific data as defined in SMBIOS section 7.45.1.
 
-| **Offset** |**Name**| **Length** | **Value** | **Description**                                                                                                                                                                                                                                                                                                      |
+| **Offset** |**Name**| **Length** | **Value** | **Description**|
 |------------|--------|------------|-----------|---------------|
-|00h|Revision|WORD|Varies|Bit 15:8 Major revision<br>Bit 7:0 Minor revision
-|02h|Structure Length|BYTE|N|Length of Processor-specific Data
-|03h|Processor-specific Data|N BYTEs|Varies|Processor-specific Data
+|00h|Structure Length|BYTE|N|Length of Processor-specific Data
+|01h|Processor Type|BYTE|Varies|The processor architecture delineated by this Processor-specific Block. (see [processor architectures types](#processor_architectures_types))
+|02h|Processor-specific Data|N BYTEs|Varies|[ RISC-V Processor-specific Data](#risc-v_processor-specific_data)
 
-### RISC-V Processor-specific Block Structure
+
+### <a name="processor_architectures_types">Processor Architecture Types</a>
+| **Byte value** |**Meaing**| **Reference** |
+|----------------|----------|---------------|
+|01h|IA32(x86)|None|
+|02h|x64(x86064, Intel64, AMD64, EM64T)|None|
+|03h|Intel&reg; Itanium&reg; architecture|None|
+|04h|32-bit ARM(Aarch32)|None|
+|05h|64-bit ARM(Aarch64)|None|
+|06h|32-bit RISC-V(RV32)|None|
+|07h|64-bit RISC-V(RV64)|None|
+|08h|128-bit RISCV(RV64)|None|
+
+### <a name="risc-v_processor-specific_data">RISC-V Processor-specific Data</a>
 ----------------------------------------------------------
 
 RISC-V processor-specific additional information is constructed by RISC-V boot loader such as uboot, coreboot, UEFI edk2 firmware, etc. SMBIOS Type 44 is referred by RISC-V software for recognizing RISC-V hart capability. RISC-V SMBIOS Type 44 Processor-specific Block is version controlled which use major and minor versioning in 16-bit value at *offset 0*. The new fields must be added to the end of this table for the backward compatible.
 
-| **Offset** | **Additional Info. Version** | **Name**                                                              | **Length** | **Value** | **Description**                                                                                                                                                                                                                                                                                                       |
+| **Offset** | **Additional Info. Version** | **Name**| **Length** | **Value** | **Description**|
 |------------|------------------------------|-----------------------------------------------------------------------|------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 00h        | 000Ah (v0.10)                 | Revision of RISC-V Processor-specific Block Structure         | WORD       | Varies    | Bit 15:8 Major revision Bit 7:0 Minor revision The newer revision of RISC-V Processor-specific Block Structure is backward compatible with older version of this structure.|
+| 00h        | 000Ah (v0.10)| Revision of RISC-V Processor-specific Block Structure         | WORD       | Varies    | Bit 15:8 Major revision Bit 7:0 Minor revision The newer revision of RISC-V Processor-specific Block Structure is backward compatible with older version of this structure.|
 | 02h        | 000Ah (v0.10)                 | Structure Length | Byte       | 110         | Length of Processor-specific Data |
-
-#### RISC-V Processor-specific Data Structure (follows Processor-specific Block Structure above)
-
-| **Offset** | **Additional Info. Version** | **Name**                                                              | **Length** | **Value** | **Description**                                                                                                                                                                                                                                                                                                       |
-|------------|------------------------------|-----------------------------------------------------------------------|------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 03h        | 000Ah (v0.10)                 | Hart ID          | DQWORD     | Varies    | The ID of this RISC-V Hart        |
-| 13h        | 000Ah (v0.10)                | Boot Hart        | BYTE       | Boolean   | 1: This is boot hart to boot system <br>0: This is not the boot hart |
+| 13h        | 000Ah (v0.10)                 | Boot Hart        | BYTE       | Boolean   | 1: This is boot hart to boot system <br>0: This is not the boot hart |
 | 14h        | 000Ah (v0.10)                 | Machine Vendor ID | DQWORD     | Varies    | The vendor ID of this RISC-V Hart  |
 | 24h        | 000Ah (v0.10)                 | Machine Architecture ID  | DQWORD     | Varies    | Base microarchitecture of the hart. Value of 0 is possible to indicate the ﬁeld is not implemented. The combination of Machine Architecture ID and Machine Vendor ID should uniquely identify the type of hart microarchitecture that is implemented.  |
 | 34h        | 000Ah (v0.10)                 | Machine Implementation ID                                             | DQWORD     | Varies    | Unique encoding of the version of the processor implementation. Value of 0 is possible to indicate the ﬁeld is not implemented. The Implementation value should reﬂect the design of the RISC-V Hart. |
@@ -113,3 +121,4 @@ SMBIOS Spec -  https://www.dmtf.org/standards/smbios
 ----------------------------------------------------------
 #### All contributors are listed as below,
 Abner Chang <abner.chang@hpe.com>, **Hewlett Packard Enterprise (HPE)**<br>Gilbert Chen <gilbert.chen@hpe.com>, **Hewlett Packard Enterprise (HPE)**
+
