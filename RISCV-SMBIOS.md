@@ -115,7 +115,8 @@ RISC-V processor-specific additional information is constructed by RISC-V boot l
 
 ### External Reference
 ----------------------------------------------------------
-SMBIOS Spec -  https://www.dmtf.org/standards/smbios
+SMBIOS Spec -  https://www.dmtf.org/standards/smbios<br>
+SMBIOS Type 44 is a new structure introduced to SMBIOS spec. This new definition will be published in SMBIOS spec v3.3.0 which is expected to release in the end of July 2019.
 
 ### Contributing
 ----------------------------------------------------------
