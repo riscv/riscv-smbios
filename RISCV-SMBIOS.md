@@ -8,7 +8,7 @@ RISC-V processor is cataloged into three families. Due to the width of this file
 
 ### Offset 08h Processor ID
 ----------------------------------------------------------
-For RISC-V class CPUs, the processor ID contains a QWORD Machine **Vendor ID CSR (mvendroid)** of RISC-V processor hart 0. More information of RISC-V class CPU feature is described in RISC-V processor additional information (SMBIOS Type 44)
+For RISC-V class CPUs, the processor ID contains a QWORD Machine **Vendor ID CSR (mvendorid)** of RISC-V processor hart 0. More information of RISC-V class CPU feature is described in RISC-V processor additional information (SMBIOS Type 44)
 ### Offset 26h Processor Characteristics
 ----------------------------------------------------------
 ***Processor Characteristics*** is set according to RISC-V processor capability accordingly.
