@@ -1,4 +1,5 @@
 # RISC-V Processor SMBIOS Spec
+**(This spec is not in the ratification process yet)**
 
 This repository contains SMBIOS tables of RISC-V processor. SMBIOS tables provide hardware information and capability of RISC-V processor to the management software, OS boot loader, OS, shell application, etc for recognizing the presence of hardware and settings. For RISC-V processor, below SMBIOS tables are necessary to built up according to the architecture of RISC-V processor variant.
 - SMBIOS Type 4, Processor Information
