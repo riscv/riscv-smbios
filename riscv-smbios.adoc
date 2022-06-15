@@ -1,55 +1,4 @@
 [[riscv-smbios]]
-= RISC-V SMBIOS Specification
-:description: A working template for documenting RISC-V architecture in asciidoc
-:company: RISC-V.org
-:revdate: 03/2019
-:revnumber: 1.0
-//:revremark:
-//development: assume everything can change
-//stable: assume everything could change
-//frozen: of you implement this version you assume the risk that something might change because of the public review cycle  but we expect little to no change.
-//ratified: you can implement this and be assured nothing will change. if something needs to change due to an errata or enhancement, it will come out in a new extension. we do not revise extensions.
-:url-riscv: http://riscv.org
-:doctype: book
-:preface-title: Preamble
-//:colophon:
-//:appendix-caption: Appendix
-:imagesdir: images
-:title-logo-image: image:risc-v_logo.png[pdfwidth=3.25in,align=center]
-//:page-background-image: image:draft.svg[opacity=20%]
-//:title-page-background-image: none
-:back-cover-image: image:backpage.png[opacity=25%]
-// Settings:
-:experimental:
-:reproducible:
-:imagesoutdir: images
-:bibtex-file: resources/riscv-spec.bib
-:bibtex-order: alphabetical
-:bibtex-style: apa
-:icons: font
-:lang: en
-:listing-caption: Listing
-:sectnums:
-:toc: left
-:toclevels: 4
-:source-highlighter: pygments
-ifdef::backend-pdf[]
-:source-highlighter: coderay
-endif::[]
-:table-caption: Table
-:figure-caption: Figure
-:xrefstyle: full
-:chapter-refsig: Chapter
-:section-refsig: Section
-:appendix-refsig: Appendix
-:data-uri:
-:hide-uri-scheme:
-:stem: latexmath
-:footnote:
-
-// changelog for the document
-include::changelog.adoc[]
-
 # RISC-V Processor SMBIOS Tables
 ## RISC-V SMBIOS Type 4 Processor Information
 The information in SMBIOS Type 4 defines the attributes of a single RISC-V
@@ -229,9 +178,3 @@ width (See below) of the User Mode native base integer ISA supported by this RIS
 | 02h| 64-bit
 | 03h| 128-bit
 |===
-
-// Appendix for the document
-include::appendix.adoc[]
-
-// Contributors of thisdocument
-include::contributor.adoc[]
