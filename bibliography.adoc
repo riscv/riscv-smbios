@@ -2,3 +2,5 @@
 == Bibliography
 
 bibliography::[]
+
+* [[UEFI]]<<UEFI>> RISC-V UEFI PROTOCOL Specification 1.0.0, 2022, https://github.com/riscv-non-isa/riscv-uefi/releases/download/1.0.0/RISCV_UEFI_PROTOCOL-spec.pdf

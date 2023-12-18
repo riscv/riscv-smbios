@@ -124,7 +124,9 @@ Structure is backward compatible with older version of this structure.
 | **Offset** | **Additional Info. Version** | **Name** | **Length** | **Value** | **Description**
 | 03h| 000Ah (v0.10)| Hart ID| DQWORD| Varies| The ID of this RISC-V Hart
 | 13h| 000Ah (v0.10)| Boot Hart| BYTE| Boolean| 1: This is boot hart to boot system +
-0: This is not the boot hart
+0: This is not the boot hart +
+This field is obsoleted by the RISC-V UEFI PROTOCOL Specification <<UEFI>> and
+should be ignored.
 | 14h| 000Ah (v0.10)| Machine Vendor ID | DQWORD| Varies| The vendor ID of this
 RISC-V Hart
 | 24h| 000Ah (v0.10)| Machine Architecture ID| DQWORD| Varies| Base
