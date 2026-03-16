@@ -15,7 +15,7 @@ FEh according to SMBIOS spec.
 
 ### Offset 08h Processor ID
 For RISC-V class CPUs, the processor ID contains a QWORD Machine
-**Vendor ID CSR (mvendroid)** of RISC-V processor hart 0. More
+**Vendor ID CSR (mvendorid)** of RISC-V processor hart 0. More
 information of RISC-V class CPU feature is described in RISC-V
 processor additional information (SMBIOS Type 44)
 
